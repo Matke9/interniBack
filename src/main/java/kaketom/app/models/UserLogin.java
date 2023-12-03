@@ -3,10 +3,15 @@ package kaketom.app.models;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import javax.validation.constraints.NotBlank;
+
 @Document
 public class UserLogin {
+    @NotBlank(message = "Name is required")
     @Field
     private String name;
+
+    @NotBlank(message = "Name is required")
     @Field
     private String password;
 
