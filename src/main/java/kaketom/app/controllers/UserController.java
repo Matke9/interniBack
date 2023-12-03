@@ -1,13 +1,12 @@
 package kaketom.app.controllers;
 
+import kaketom.app.models.Predmet;
+import kaketom.app.models.PredmetNovi;
 import kaketom.app.models.User;
 import kaketom.app.models.UserLogin;
 import kaketom.app.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +28,14 @@ public class UserController {
     public User createUser(@RequestBody UserLogin userLogin) {
         User newUser = new User(userLogin.getName(), userLogin.getPassword());
         return userRepository.save(newUser);
+    }
+
+    @PostMapping("/add-subject")
+    public User addSubject(@RequestParam String user_id, @RequestBody PredmetNovi p){
+        User u = userRepository.findById(user_id).orElse(null);
+        List<Predmet> predmeti = u.getPredmeti();
+        predmeti.add(new Predmet(p.getName(), p.getMaterial(), p.getWebsite()));
+        u = userRepository.save(u);
+        return u;
     }
 }

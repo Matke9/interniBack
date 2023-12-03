@@ -11,7 +11,7 @@ public class UserLogin {
     @Field
     private String name;
 
-    @NotBlank(message = "Name is required")
+    @NotBlank(message = "Password is required")
     @Field
     private String password;
 
